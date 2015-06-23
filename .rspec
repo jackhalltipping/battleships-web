@@ -1,5 +1,2 @@
 --color
 --require spec_helper
---require capybara/rspec
---require battleships
---format documentation
