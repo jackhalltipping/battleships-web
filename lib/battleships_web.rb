@@ -7,9 +7,14 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/name' do
-    @name = params[:name]
-    #@name2 = params[:name2]
+    $player1 = params[:player1]
     erb :name
+  end
+
+  get '/board' do
+    $game = Game.new Player, Board
+    @guess = params[:guess]
+    erb :board
   end
 
   set :views, proc { File.join(root, '..', 'views') }

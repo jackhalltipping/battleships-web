@@ -1,9 +1,9 @@
-<% if @name != '' && @name %>
-    Hello <%= @name %>. Welcome to Battleship!
+<% if $player1 != '' && $player1 %>
+  <a href="/board"> Start your game </a>
 <% else %>
   <form action="/name">
-    What's your name?
-    <input type="text" name="name">
+    Player 1 what's your name?
+    <input type="text" name="player1">
     <input type="submit" value="Submit">
   </form>
 <% end %>
