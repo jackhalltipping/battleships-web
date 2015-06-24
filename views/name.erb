@@ -1,5 +1,6 @@
 <% if $player1 != '' && $player1 %>
-  <a href="/board"> Start your game </a>
+  Hello <%= $player1 %>, welcome to Battleships!
+  <a href="/newgame"> Start your game </a>
 <% else %>
   <form action="/name">
     Player 1 what's your name?

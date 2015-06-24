@@ -11,10 +11,19 @@ class BattleshipsWeb < Sinatra::Base
     erb :name
   end
 
-  get '/board' do
+  get '/newgame' do
     $game = Game.new Player, Board
-    @guess = params[:guess]
-    erb :board
+    @submarine_coordinate = params[:submarine_coordinate]
+    @submarine_direction = params[:submarine_direction]
+    @destroyer_coordinate = params[:destroyer_coordinate]
+    @destroyer_direction = params[:destroyer_direction]
+    @cruiser_coordinate = params[:cruiser_coordinate]
+    @cruiser_direction = params[:cruiser_direction]
+    @battleship_coordinate = params[:battleship_coordinate]
+    @battleship_direction = params[:battleship_direction]
+    @aircraft_carrier_coordinate = params[:aircraft_carrier_coordinate]
+    @aircraft_carrier_direction = params[:aircraft_carrier_direction]
+    erb :newgame
   end
 
   set :views, proc { File.join(root, '..', 'views') }
