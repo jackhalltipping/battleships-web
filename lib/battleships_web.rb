@@ -3,42 +3,29 @@ require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
   get '/' do
-    erb :index
-  end
-
-  get '/name' do
-    $player1 = params[:player1]
-    erb :name
+    $player1 = params[:name]
+    if $player1 != '' && $player1
+      redirect '/newgame'
+    else
+      erb :index
+    end
   end
 
   get '/newgame' do
     $game = Game.new Player, Board
-    @submarine_coordinate = params[:submarine_coordinate]
-    @submarine_direction  = params[:submarine_direction]
     erb :newgame
   end
 
-  get '/destroyer' do
-    @destroyer_coordinate = params[:destroyer_coordinate]
-    @destroyer_direction  = params[:destroyer_direction]
-    erb :destroyer
-  end
-
-  get '/cruiser' do
-    @cruiser_coordinate = params[:cruiser_coordinate]
-    @cruiser_direction  = params[:cruiser_direction]
-    erb :cruiser
-  end
-  get '/battleship' do
-    @battleship_coordinate = params[:battleship_coordinate]
-    @battleship_direction  = params[:battleship_direction]
-    erb :battleship
-  end
-
-  get '/aircraft_carrier' do
-    @aircraft_carrier_coordinate = params[:aircraft_carrier_coordinate]
-    @aircraft_carrier_direction  = params[:aircraft_carrier_direction]
-    erb :aircraft_carrier
+  get '/placeships' do
+    @ship = params[:Ship]
+    @location = params[:location]
+    @direction = params[:direction]
+    if @location != '' && @location
+      #$game.player_1.place_ship Ship.@ship, @location, @direction
+      #cant place ship, need to reload page after placing
+    else
+      erb :placeships
+    end
   end
 
   set :views, proc { File.join(root, '..', 'views') }
