@@ -1,0 +1,19 @@
+<% if @cruiser_coordinate != '' && @cruiser_coordinate &&  @cruiser_direction != '' && @cruiser_direction %>
+  <% $game.player_1.place_ship Ship.cruiser, @cruiser_coordinate, @cruiser_direction %>
+  You placed your cruiser
+  <a href="/battleship">now place your battleship</a>
+
+<% else %>
+  <%=$player1%> here is your board:
+  <pre> <%= $game.own_board_view $game.player_1 %> <pre>
+
+  <form action="/cruiser">
+    CRUISER:
+    Enter your cruiser coordinate (i.e. A1)
+    <input type="text" name="cruiser_coordinate">
+    Enter your cruiser direction (i.e. vertically)
+    <input type="text" name="cruiser_direction">
+
+    <input type="submit" value="Submit">
+  </form>
+<% end %>

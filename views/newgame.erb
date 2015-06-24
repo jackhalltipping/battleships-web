@@ -1,72 +1,10 @@
 <% if @submarine_coordinate != '' && @submarine_coordinate &&  @submarine_direction != '' && @submarine_direction %>
   <% $game.player_1.place_ship Ship.submarine, @submarine_coordinate, @submarine_direction %>
-  <form action="/newgame">
-    Here is your board:
-    <pre> <%= $game.own_board_view $game.player_1 %> <pre>
-
-    DESTROYER:
-    Enter your destroyer coordinate (i.e. A1)
-    <input type="text" name="destroyer_coordinate">
-    Enter your destroyer direction (i.e. vertically)
-    <input type="text" name="destroyer_direction">
-    <input type="submit" value="Submit">
-  </form>
-
-  <% if @destroyer_coordinate != '' && @destroyer_coordinate &&  @destroyer_direction != '' && @destroyer_direction %>
-    <% $game.player_1.place_ship Ship.destroyer, @destroyer_coordinate, @destroyer_direction %>
-    <form action="/newgame">
-      Here is your board:
-      <pre> <%= $game.own_board_view $game.player_1 %> <pre>
-
-      CRUISER:
-      Enter your cruiser coordinate (i.e. A1)
-      <input type="text" name="cruiser_coordinate">
-      Enter your cruiser direction (i.e. vertically)
-      <input type="text" name="cruiser_direction">
-    </form>
-  <% end %>
-
-    <% if @cruiser_coordinate != '' && @cruiser_coordinate &&  @cruiser_direction != '' && @cruiser_direction %>
-      <% $game.player_1.place_ship Ship.cruiser, @cruiser_coordinate, @cruiser_direction %>
-      <form action="/newgame">
-        Here is your board:
-        <pre> <%= $game.own_board_view $game.player_1 %> <pre>
-
-        BATTLESHIP:
-        Enter your battleship coordinate (i.e. A1)
-        <input type="text" name="battleship_coordinate">
-        Enter your battleship direction (i.e. vertically)
-        <input type="text" name="battleship_direction">
-      </form>
-    <% end %>
-
-      <% if @battleship_coordinate != '' && @battleship_coordinate &&  @battleship_direction != '' && @battleship_direction %>
-        <% $game.player_1.place_ship Ship.battleship, @battleship_coordinate, @battleship_direction %>
-        <form action="/newgame">
-          Here is your board:
-          <pre> <%= $game.own_board_view $game.player_1 %> <pre>
-
-          AIRCRAFT CARRIER:
-          Enter your aircraft carrier coordinate (i.e. A1)
-          <input type="text" name="aircraft_carrier_coordinate">
-          Enter your aircraft carrier direction (i.e. vertically)
-          <input type="text" name="aircraft_carrier_direction">
-
-          <input type="submit" value="Submit">
-        </form>
-      <% end %>
-
-        <% if @aircraft_carrier_coordinate != '' && @aircraft_carrier_coordinate &&  @aircraft_carrier_direction != '' && @aircraft_carrier_direction %>
-          <form action="/newgame">
-            Here is your board:
-            <pre> <%= $game.own_board_view $game.player_1 %> <pre>
-
-            <a href="/fire"> Fire </a>
-          </form>
-        <% end %>
+  You placed your submarine
+  <a href="/destroyer">now place your destroyer</a>
 
 <% else %>
-  Here is your board:
+  <%=$player1%> here is your board:
   <pre> <%= $game.own_board_view $game.player_1 %> <pre>
 
   <form action="/newgame">
