@@ -59,24 +59,34 @@ enable :sessions
 
   end
 
-  # get '/player2board' do
-    
-  #   unless (params[:ship] == '' || params[:ship] == nil)
-  #     begin
-  #       $game.player_2.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
-  #     rescue RuntimeError => @error
-  #     end
-  #     @board2 = $game.own_board_view($game.player_2)
-  #     erb :player2board
+  get '/firing' do 
+    coords = params[:coords]
+    begin
+      if coords && coords != ""
+        @shot_success = $game.player_1.shoot coords.to_sym
+        @opponent_board = $game.opponent_board_view $game.player_1
+      else
+        erb :firing
+        @coord_error = 'Enter coordinate'
+      end
+    rescue RuntimeError => @coord_error
+    end
+    erb :firing
+  end
 
-  #    end
+  # get '/firing_result' do
+
+  #   erb :firing_result
   # end
+
+
+
 
   get '/bomb' do
     unless (params[:coords] == '' || params[:coords] == nil)
       $game.player_1.shoot params[:coords].to_sym
     end
-    @board = $game.opponent_board_view($game.player_1)
+    @board = $game.opponent_board_view($game.player_2)
     erb :bomb
   end
 

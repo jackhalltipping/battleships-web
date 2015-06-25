@@ -1,0 +1,17 @@
+Where do you place you bomb!!!
+
+<% if @coord_error %>
+  <div>
+  <%= @coord_error %>
+  </div>
+<% end %>
+
+<pre><%= @opponent_board %></pre>
+<%= @shot_success %>
+<form method="post" action="/firing">
+  <label for="coordinate" name="coordinate">Enter coordinate to fire at
+  <input type="text" name="coords">
+  <input type="submit" value="Fire">
+
+</form>
+
