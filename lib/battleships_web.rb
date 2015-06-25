@@ -34,27 +34,43 @@ enable :sessions
   end
 
   get '/board' do
-    unless (params[:ship] == '' || params[:ship] == nil)
-      begin
-        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
-      rescue RuntimeError => @error
+    begin
+      unless (params[:ship] == '' || params[:ship] == nil)
+      $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
       end
+    rescue RuntimeError => @error
     end
 
     @board = $game.own_board_view($game.player_1)
     erb :board
   end
+
   get '/player2board' do
-    unless (params[:ship] == '' || params[:ship] == nil)
-      begin
-        $game.player_2.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
-      rescue RuntimeError => @error
+      
+    begin
+      unless (params[:ship] == '' || params[:ship] == nil)
+      $game.player_2.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
       end
-      @board2 = $game.own_board_view($game.player_2)
-      erb :player2board
+    rescue RuntimeError => @error
+    end
+
+    @board2 = $game.own_board_view($game.player_2)
+    erb :player2board
 
   end
-end
+
+  # get '/player2board' do
+    
+  #   unless (params[:ship] == '' || params[:ship] == nil)
+  #     begin
+  #       $game.player_2.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+  #     rescue RuntimeError => @error
+  #     end
+  #     @board2 = $game.own_board_view($game.player_2)
+  #     erb :player2board
+
+  #    end
+  # end
 
   get '/bomb' do
     unless (params[:coords] == '' || params[:coords] == nil)
