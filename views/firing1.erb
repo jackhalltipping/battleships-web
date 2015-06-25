@@ -1,0 +1,21 @@
+<%= session[:name1] %> where do you place you bomb!!!
+
+<% if @coord_error %>
+  <div>
+  <%= @coord_error %>
+  </div>
+<% end %>
+
+<pre><%= @opponent_board %></pre>
+<%= @shot_success %>
+<form action="/firing1">
+  <label for="coordinate" name="coordinate">Enter coordinate to fire at</label>
+  <input type="text" name="coords">
+  <input type="submit" value="Fire">
+
+</form>
+
+<form action="/firing2">
+  <input type="submit" value="Switch turns">
+</form>
+
