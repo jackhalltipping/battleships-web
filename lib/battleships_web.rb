@@ -59,19 +59,34 @@ enable :sessions
 
   end
 
-  get '/firing' do 
+  get '/firing1' do 
     coords = params[:coords]
     begin
       if coords && coords != ""
         @shot_success = $game.player_1.shoot coords.to_sym
         @opponent_board = $game.opponent_board_view $game.player_1
       else
-        erb :firing
+          erb :firing1
         @coord_error = 'Enter coordinate'
-      end
+       end
     rescue RuntimeError => @coord_error
     end
-    erb :firing
+    erb :firing1
+  end
+
+  get '/firing2' do 
+    coords = params[:coords]
+    begin
+      if coords && coords != ""
+        @shot_success = $game.player_2.shoot coords.to_sym
+        @opponent_board = $game.opponent_board_view $game.player_2
+      else
+         erb :firing2
+        @coord_error = 'Enter coordinate'
+       end
+    rescue RuntimeError => @coord_error
+    end
+    erb :firing2
   end
 
   # get '/firing_result' do
