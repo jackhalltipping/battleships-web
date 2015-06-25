@@ -2,33 +2,50 @@ require 'sinatra/base'
 require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
-  get '/' do
-    $player1 = params[:name]
-    if $player1 != '' && $player1
-      redirect '/newgame'
-    else
-      erb :index
-    end
-  end
-
-  get '/newgame' do
-    $game = Game.new Player, Board
-    erb :newgame
-  end
-
-  get '/placeships' do
-    @ship = params[:Ship]
-    @location = params[:location]
-    @direction = params[:direction]
-    if @location != '' && @location
-      #$game.player_1.place_ship Ship.@ship, @location, @direction
-      #cant place ship, need to reload page after placing
-    else
-      erb :placeships
-    end
-  end
+enable :sessions
 
   set :views, proc { File.join(root, '..', 'views') }
+
+  get '/' do
+    erb :index
+  end
+
+  get '/new_game' do
+    if (params[:name] == '' || params[:name] == nil)
+      erb :new_game
+    else
+      session[:name] = params[:name]
+      redirect "/start_game"
+    end
+  end
+
+  get '/start_game' do
+    $game = Game.new Player, Board
+    $game.player_2.place_ship Ship.destroyer, 'A1'
+    erb :start_game
+  end
+
+  get '/board' do
+    unless (params[:ship] == '' || params[:ship] == nil)
+      begin
+        $game.player_1.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+      rescue RuntimeError => @error
+      end
+    end
+
+    @board = $game.own_board_view($game.player_1)
+    erb :board
+  end
+
+  get '/bomb' do
+    unless (params[:coords] == '' || params[:coords] == nil)
+      $game.player_1.shoot params[:coords].to_sym
+    end
+    @board = $game.opponent_board_view($game.player_1)
+    erb :bomb
+  end
+
+
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
