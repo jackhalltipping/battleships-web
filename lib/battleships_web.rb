@@ -10,18 +10,26 @@ enable :sessions
     erb :index
   end
 
-  get '/new_game' do
-    if (params[:name] == '' || params[:name] == nil)
-      erb :new_game
+  get '/new_game1' do
+    if (params[:name1] == '' || params[:name1] == nil)
+      erb :new_game1
     else
-      session[:name] = params[:name]
+      session[:name1] = params[:name1]
+      redirect "/new_game2"
+    end
+  end
+  get '/new_game2' do
+    if (params[:name2] == '' || params[:name2] == nil)
+      erb :new_game2
+    else
+      session[:name2] = params[:name2]
       redirect "/start_game"
     end
   end
 
   get '/start_game' do
     $game = Game.new Player, Board
-    $game.player_2.place_ship Ship.destroyer, 'A1'
+    # $game.player_2.place_ship Ship.destroyer, 'A1'
     erb :start_game
   end
 
@@ -36,6 +44,17 @@ enable :sessions
     @board = $game.own_board_view($game.player_1)
     erb :board
   end
+  get '/player2board' do
+    unless (params[:ship] == '' || params[:ship] == nil)
+      begin
+        $game.player_2.place_ship Ship.send(params[:ship]), params[:coords], params[:direction]
+      rescue RuntimeError => @error
+      end
+      @board2 = $game.own_board_view($game.player_2)
+      erb :player2board
+
+  end
+end
 
   get '/bomb' do
     unless (params[:coords] == '' || params[:coords] == nil)
