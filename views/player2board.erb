@@ -1,6 +1,6 @@
-Place your ships, <%= session[:name1] %>
+Place your ships, <%= session[:name2] %>
 <pre>
-<%= @board %>
+<%= @board2 %>
 </pre>
 <div>
 <%= @error %>
@@ -24,8 +24,3 @@ Place your ships, <%= session[:name1] %>
     <input type="submit" value ="Start Shooting">
   </form> 
 </div> -->
-<div> 
-  <form action="/player2board">
-    <input type="submit" value ="<%= session[:name1] %> place Your Ships">
-  </form> 
-</div>
